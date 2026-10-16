@@ -4,15 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>SAHWAHITA - CAT Try Out CPNS</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://googleapis.com" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    
-    <!-- 1. MEMASANG SKRIP PENGHUBUNG SUPABASE YANG BENAR -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link href="https://googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cloudflare.com"></script>
+    <script src="https://jsdelivr.net"></script>
 
     <style>
-        /* --- KODE CSS ASLI BAWAAN WEBSITE ANDA --- */
         :root{--bg:#0b1424;--bg2:#121d33;--card:#16233d;--tx:#e8eefc;--mut:#8fa0c0;--g:#2AF598;--y:#FFF176;--r:#ff6b6b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
         *,*:before,*:after{box-sizing:inherit}
         html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -25,8 +22,6 @@
         input:focus,select:focus{outline:0;border-color:var(--g);box-shadow:0 0 0 3px #2af59833}
         label{font-size:12px;color:var(--mut)}
         .card{background:var(--card);border:1px solid #23355a;border-radius:16px;padding:22px}
-        
-        /* --- CSS TAMBAHAN UNTUK FORM LOGIN PESERTA --- */
         .login-screen { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: var(--bg); }
         .login-card { background: var(--card); border: 1px solid #23355a; padding: 40px; border-radius: 16px; width: 100%; max-width: 400px; box-shadow: 0 0 30px rgba(42,245,152,0.05); }
         .login-card h2 { color: var(--g); margin-bottom: 24px; text-align: center; }
@@ -35,31 +30,26 @@
 </head>
 <body>
 
-    <!-- Wadah Aplikasi Utama Anda -->
     <div id="app"></div>
 
 <script>
-    // 2. KONEKSI UTAMA KE DATABASE SUPABASE ANDA
-    const SUPABASE_URL = "https://mzrblchaoezhrawbmkdk.supabase.co"; 
+    const SUPABASE_URL = "https://supabase.co"; 
     const SUPABASE_KEY = "sb_publishable_do1eWtuMBu6t8WmYql4hkg_or2Tmuo1"; 
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    
+    // Menggunakan penamaan objek baru agar terhindar dari bentrok inisialisasi browser
+    const databaseSupa = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const app = document.getElementById('app');
 
-    // 3. FUNGSI CEK STATUS LOGIN SEBELUM MEMBUKA SOAL
     function inisialisasiAplikasi() {
         const session = localStorage.getItem('session_sahwahita');
-        
         if (session) {
-            // Jika peserta sudah login, langsung jalankan fungsi render kode tryout asli Anda
             jalankanWebsiteTryoutAsli();
         } else {
-            // Jika belum login, tampilkan layar formulir login
             tampilkanFormLogin();
         }
     }
 
-    // 4. LAYAR LOGIN JAVASCRIPT (TERINTEGRASI DESIGN POPPINS)
     function tampilkanFormLogin() {
         app.innerHTML = `
             <div class="login-screen">
@@ -79,7 +69,6 @@
         `;
     }
 
-    // 5. PROSES VALIDASI AKUN KE SERVER SUPABASE
     async function prosesLoginPeserta() {
         const email = document.getElementById('emailPeserta').value;
         const password = document.getElementById('passPeserta').value;
@@ -93,8 +82,7 @@
         tombol.innerText = "Memeriksa Akun...";
         tombol.disabled = true;
 
-        // Mengecek ke database Supabase
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await databaseSupa.auth.signInWithPassword({
             email: email,
             password: password
         });
@@ -104,40 +92,30 @@
             tombol.innerText = "Masuk Sesi Tryout";
             tombol.disabled = false;
         } else {
-            // Simpan status sukses login di browser agar tidak tertendang saat refresh halaman
             localStorage.setItem('session_sahwahita', JSON.stringify(data.session));
             alert("Login Berhasil! Selamat mengerjakan.");
-            
-            // Segarkan tampilan untuk merender paket soal
             inisialisasiAplikasi();
         }
     }
 
-    // 6. LOGIKA & SCRIPT ASLI WEBSITE TRYOUT ANDA
     function jalankanWebsiteTryoutAsli() {
-        // Skrip render data dasar gambar kompresi Anda
-        const IMG="data:image/jpeg;base64,..."; 
-        
         app.innerHTML = `
             <div class="wrap">
-                <nav><span class="t a">Dashboard Peserta</span> <button class="btn s d" onclick="logoutPeserta()">LOGOUT</button></nav>
-                <div class="card">
-                    <h3>Selamat Datang di Sesi Tryout CPNS</h3>
-                    <p>Silakan pilih paket soal atau hubungi admin untuk aktivasi token sesi kuis Anda.</p>
+                <nav><span class="t a">Dashboard Tryout Peserta</span> <button class="btn s d" onclick="logoutPeserta()">LOGOUT SYSTEM</button></nav>
+                <div class="card" style="margin-top: 20px;">
+                    <h3>Selamat Datang di Sistem Ujian Online SAHWAHITA</h3>
+                    <p>Akun Anda terverifikasi secara resmi. Silakan hubungi admin pengawas untuk mengaktifkan paket soal ujian Anda.</p>
                 </div>
             </div>
         `;
     }
 
-    // Fungsi tambahan jika peserta ingin keluar dari sistem
     function logoutPeserta() {
         localStorage.removeItem('session_sahwahita');
         inisialisasiAplikasi();
     }
 
-    // Jalankan pengecekan pertama kali saat halaman diakses oleh browser peserta
     inisialisasiAplikasi();
-
 </script>
 </body>
 </html>
