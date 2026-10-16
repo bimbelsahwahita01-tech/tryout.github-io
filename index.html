@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>SAHWAHITA - CAT Try Out CPNS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     
-    <!-- 1. MEMASANG SKRIP PENGHUBUNG SUPABASE (SUDAH DIPERBAIKI) -->
+    <!-- 1. MEMASANG SKRIP PENGHUBUNG SUPABASE YANG BENAR -->
     <script src="https://jsdelivr.net"></script>
 
     <style>
@@ -39,10 +39,9 @@
     <div id="app"></div>
 
 <script>
-    // 2. KONEKSI UTAMA KE DATABASE SUPABASE ANDA (SUDAH MENGGUNAKAN KUNCI ASLI ANDA)
-    const SUPABASE_URL = "https://mzrblchaoezhrawbmkdk.supabase.co"; 
-    const SUPABASE_KEY = "sb_publishable_do1eWtuMBu6t8WmYql4hkg_or2Tmuo1";
- 
+    // 2. KONEKSI UTAMA KE DATABASE SUPABASE ANDA
+    const SUPABASE_URL = "https://supabase.co"; 
+    const SUPABASE_KEY = "sb_publishable_do1eWtuMBu6t8WmYql4hkg_or2Tmuo1"; 
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const app = document.getElementById('app');
@@ -119,15 +118,12 @@
         // Skrip render data dasar gambar kompresi Anda
         const IMG="data:image/jpeg;base64,..."; 
         
-        // Letakkan seluruh sisa logika pemrograman website Anda di sini
-        // Mulai dari fungsi Admin memuat file docx, pengaturan timer, hingga rendering kuis/soal asli Anda.
         app.innerHTML = `
             <div class="wrap">
                 <nav><span class="t a">Dashboard Peserta</span> <button class="btn s d" onclick="logoutPeserta()">LOGOUT</button></nav>
                 <div class="card">
                     <h3>Selamat Datang di Sesi Tryout CPNS</h3>
                     <p>Silakan pilih paket soal atau hubungi admin untuk aktivasi token sesi kuis Anda.</p>
-                    <!-- Logika form upload docx admin Anda dilanjutkan di sini -->
                 </div>
             </div>
         `;
