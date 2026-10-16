@@ -4,10 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>SAHWAHITA - CAT Try Out CPNS</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link href="https://googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script src="https://cloudflare.com"></script>
-    <script src="https://jsdelivr.net"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://googleapis.com" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    
+    <!-- 1. SKRIP SUPABASE LENGKAP - JANGAN DIUBAH ATAU DIHAPUS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
         :root{--bg:#0b1424;--bg2:#121d33;--card:#16233d;--tx:#e8eefc;--mut:#8fa0c0;--g:#2AF598;--y:#FFF176;--r:#ff6b6b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -33,10 +35,11 @@
     <div id="app"></div>
 
 <script>
+    // 2. KONEKSI KE DATABASE ANDA
     const SUPABASE_URL = "https://supabase.co"; 
     const SUPABASE_KEY = "sb_publishable_do1eWtuMBu6t8WmYql4hkg_or2Tmuo1"; 
     
-    // Menggunakan penamaan objek baru agar terhindar dari bentrok inisialisasi browser
+    // Inisialisasi aman
     const databaseSupa = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const app = document.getElementById('app');
@@ -57,7 +60,7 @@
                     <h2>SAHWAHITA CAT</h2>
                     <div class="form-group">
                         <label>EMAIL PESERTA</label>
-                        <input type="email" id="emailPeserta" placeholder="peserta@email.com">
+                        <input type="email" id="emailPeserta" placeholder="contoh: peserta1@gmail.com">
                     </div>
                     <div class="form-group">
                         <label>PASSWORD</label>
